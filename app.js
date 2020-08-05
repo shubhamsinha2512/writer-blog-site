@@ -41,6 +41,9 @@ app.use('/users/signup', signupRouter);
 app.use('/about', aboutRouter);
 app.use('/article', articleRouter);
 
+// dbConfig.connClient(dbConfig,dbConfig.dbCred.namesdbURL);
+// // dbConfig.dbConn.getuserCollection.insertOne({"name":"bhalu","desc":"asfdgfs"});
+// // dbConfig.namesdb.userCollection.insertOne({"name":"bhalu","desc":"asfdgfs"});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

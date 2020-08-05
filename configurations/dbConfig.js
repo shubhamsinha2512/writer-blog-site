@@ -9,17 +9,36 @@ exports.dbCred={
 }
 
 var URL = this.dbCred.namesdbURL;
-var namesdb=null, userCollection=null;
-function connClient(url){
+var namesdb, userCollection, articleCollection;
+var connClient= function (url){
     MongoClient.connect(url, {useNewUrlParser:true, useUnifiedTopology:true}, (err, client)=>{
         console.log("Connected to DB Successully");
         namesdb = client.db('namesdb');
         userCollection = namesdb.collection('users');
-        userCollection.insertOne({"name":"billu","desc":"asfdgfs"});
-
+        articleCollection = namesdb.collection('articles');
+        userCollection.insertOne({"name":"wakdma","desc":"asfdgfs"});
+        articleCollection.insertOne({"name":"gMDmillu","desc":"asfdgfs"});
     });
-}
+};
 
 connClient(URL);
-exports.namesdb;
-exports.userCollection;
+
+
+
+// exports.dbConn= {
+    
+//     getClient: function(url){
+//             MongoClient.connect(url, {useNewUrlParser:true, useUnifiedTopology:true}, (err, client)=>{
+//             namesdb = client.db('namesdb');
+//             userCollection = namesdb.collection('users');
+//             articleCollection = namesdb.collection('articles');
+//             }
+//         )},
+    
+//         getuserCollection:function(){
+//             return userCollection;
+//         },
+//         getarticleCollection:function(){
+//             return articleCollection;
+//         }
+// }
