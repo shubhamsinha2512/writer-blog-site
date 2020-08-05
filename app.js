@@ -1,11 +1,22 @@
+//Module Dependencies
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//configurations
+var serverConfig = require('./configurations/serverConfig');
+var dbConfig = require('./configurations/dbConfig');
+
+//Routing
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var homeRouter = require('./routes/homeRouter');
+var userRouter = require('./routes/userRouter');
+var loginRouter = require('./routes/loginRouter');
+var signupRouter = require('./routes/signupRouter');
+var articleRouter = require('./routes/articleRouter');
+var aboutRouter = require('./routes/aboutRouter');
 
 var app = express();
 
@@ -20,7 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/users', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
