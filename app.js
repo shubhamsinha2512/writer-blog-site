@@ -12,6 +12,14 @@ var mongoose = require('mongoose');
 var serverConfig = require('./configurations/serverConfig');
 var dbConfig = require('./configurations/dbConfig');
 
+//Connection Initialization to DB
+mongoose.connect(dbConfig.namesdbURL, {useNewUrlParser:true, useUnifiedTopology:true});
+
+//Schemas
+var User = require('./models/user');
+var Article = require('./models/article');
+
+
 //Routing
 var indexRouter = require('./routes/index');
 var homeRouter = require('./routes/homeRouter');
@@ -20,6 +28,7 @@ var loginRouter = require('./routes/loginRouter');
 var signupRouter = require('./routes/signupRouter');
 var articleRouter = require('./routes/articleRouter');
 var aboutRouter = require('./routes/aboutRouter');
+const { getMaxListeners } = require('./models/user');
 
 var app = express();
 
@@ -45,7 +54,29 @@ app.use('/article', articleRouter);
 // // dbConfig.dbConn.getuserCollection.insertOne({"name":"bhalu","desc":"asfdgfs"});
 // // dbConfig.namesdb.userCollection.insertOne({"name":"bhalu","desc":"asfdgfs"});
 
-// catch 404 and forward to error handler
+var u1 = new User(
+  {
+    name:'Shubham',
+    email:'shubham@getMaxListeners.com',
+    password:'abcdef'
+  }
+);
+u1.save();
+
+new Article({
+    title:'Hello',
+    body:'sdfghjklkjhgfdxfdxcghvhbbhvcxxfcghvjhbjnkbhvgc',
+    noOfReads:34
+}).save();
+
+Article.find((err, articles)=>{
+  if (err) console.log(err);
+  else console.log(articles);
+});
+
+mongoose.connection.close();
+
+// catch 404 and forward to err-or handler
 app.use(function(req, res, next) {
   next(createError(404));
 });

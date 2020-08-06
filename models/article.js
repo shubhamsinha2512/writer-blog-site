@@ -1,15 +1,16 @@
 var mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
 var Schema = mongoose.Schema;
+mongoose.pluralize(null);
 
-var Article=new Schema({
+var articleSchema=new Schema({
     title:{
         type:String,
-        required:true
+        required:[true, "Article Title Not Specified"]
     },
     body:{
         type:String,
-        required:true
+        required:[true, "Article Body Not Specified"]
     },
     noOfReads:{
         type:Number
@@ -19,4 +20,6 @@ var Article=new Schema({
     }
 }, {
     timestamps:true
-})
+});
+
+module.exports = mongoose.model('articles', articleSchema);
