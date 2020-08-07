@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-const { ObjectId } = require('mongodb');
 var Schema = mongoose.Schema;
 mongoose.pluralize(null);
 
@@ -11,6 +10,10 @@ var articleSchema=new Schema({
     body:{
         type:String,
         required:[true, "Article Body Not Specified"]
+    },
+    author:{
+        type:String,
+        required:[false, "Author not specified"]
     },
     noOfReads:{
         type:Number,
