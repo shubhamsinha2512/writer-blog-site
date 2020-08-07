@@ -15,15 +15,9 @@ articleRouter.route('/')
 // })
 .get((req, res, next)=>{
     console.log("Get Request on /article");
-    Article.find({})
-    .then((articles)=>{
-        res.statusCode=200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(articles);
-        console.log('articles retrived successful');
-        res.end();
-    })
-    .catch((err) => next(err));
+    res.statusCode=200;
+    res.setHeader('content-type', 'application/json');
+    articleOpr.getAllArticles(res);
 })
 .post((req, res, next)=>{
     console.log('POST not supported on /article');
@@ -39,22 +33,30 @@ articleRouter.route('/')
 });
 
 
+articleRouter.route('/:articleId')
+.get((req, res, next)=>{
+    console.log(req.params.articleId);
+    articleOpr.getArticleById(req, res);
+})
+
 articleRouter.route('/submit')
 .get((req, res, next)=>{
     console.log('GET not supported on /article/submit');
-    res.end();
+    res.end('GET not supported on /article/submit');
 })
 .put((req, res, next)=>{
-    console.log('PUT?IPDATION to be added on /article/submit');
-    res.end();
+    console.log('PUT/UPDATION to be added on /article/submit');
+    res.end('PUT/UPDATION to be added on /article/submit');
 })
 .post((req, res, next)=>{
+    console.log('POST on /article/submit');
     articleOpr.submitArticle(req.body);
-    res.end();
+    res.statusCode=200;
+    res.end("Article Submitted Successfully");
 })
 .delete((req, res, next)=>{
     console.log('DELETE to be added on article/submit');
-    res.end();
+    res.end('DELETE to be added on article/submit');
 })
 
 module.exports=articleRouter;

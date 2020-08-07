@@ -13,7 +13,8 @@ var articleSchema=new Schema({
         required:[true, "Article Body Not Specified"]
     },
     noOfReads:{
-        type:Number
+        type:Number,
+        required:false
     },
     coverPic:{
         type:String
