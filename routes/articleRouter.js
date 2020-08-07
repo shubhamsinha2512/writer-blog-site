@@ -6,13 +6,10 @@ const mongoose = require('mongoose');
 const Article = require('../models/article');
 
 articleRouter.use(bodyParser.json());
+articleRouter.use(bodyParser.urlencoded({extended:true}));
 console.log("before get - articleRouter");
 
 articleRouter.route('/')
-// .all((req, res, next)=>{
-//     console.log("All routing");
-//     res.end();
-// })
 .get((req, res, next)=>{
     console.log("Get Request on /article");
     res.statusCode=200;
@@ -39,6 +36,8 @@ articleRouter.route('/:articleId')
     articleOpr.getArticleById(req, res);
 })
 
+
+//Article Submission
 articleRouter.route('/submit')
 .get((req, res, next)=>{
     console.log('GET not supported on /article/submit');
@@ -50,7 +49,7 @@ articleRouter.route('/submit')
 })
 .post((req, res, next)=>{
     console.log('POST on /article/submit');
-    articleOpr.submitArticle(req.body);
+    articleOpr.submitArticle(req, res);
     res.statusCode=200;
     res.end("Article Submitted Successfully");
 })

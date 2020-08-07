@@ -31,7 +31,8 @@ const app=express();
 mongoose.connect(dbConfig.namesdbURL, {useNewUrlParser:true, useUnifiedTopology:true});
 
 app.use(morgan('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.json()); //for application/json
+app.use(bodyParser.urlencoded({extended:true})); //for application/xwww-form-urlencoded
 app.use(express.static(__dirname+'/public'));
 
 // app.get('/',(req, res, next)=>{
