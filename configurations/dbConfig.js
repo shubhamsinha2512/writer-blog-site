@@ -9,7 +9,7 @@ var password='admin';
 exports.namesdbURL=`mongodb+srv://shubham:admin@testcluster.4cqpg.mongodb.net/namesdb?retryWrites=true&w=majority`;
 
 
-var URL = this.dbCred.namesdbURL;
+// var URL = this.dbCred.namesdbURL;
 // var namesdb, userCollection, articleCollection;
 // var connClient= function (url){
 //     MongoClient.connect(url, {useNewUrlParser:true, useUnifiedTopology:true}, (err, client)=>{
@@ -24,4 +24,4 @@ var URL = this.dbCred.namesdbURL;
 
 // connClient(URL);
 
-exports.client = new MongoClient(this.dbCred.namesdbURL, {useNewUrlParser:true, useUnifiedTopology:true});
+// exports.client = new MongoClient(this.dbCred.namesdbURL, {useNewUrlParser:true, useUnifiedTopology:true});
