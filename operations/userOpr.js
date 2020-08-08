@@ -31,3 +31,7 @@ exports.getUserByEmail = (userEmail, res)=>{
         res.json(user);
     })
 }
+
+exports.createNewUser = (req, res)=>{
+    new User(req.body).save();
+}

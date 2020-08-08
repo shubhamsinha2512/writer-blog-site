@@ -4,6 +4,8 @@ var articleOpr = require('../operations/articleOpr');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Article = require('../models/article');
+const { render } = require('ejs');
+const article = require('../models/article');
 
 articleRouter.use(bodyParser.json());
 articleRouter.use(bodyParser.urlencoded({extended:true}));
@@ -30,18 +32,11 @@ articleRouter.route('/')
 });
 
 
-articleRouter.route('/:articleId')
-.get((req, res, next)=>{
-    console.log(req.params.articleId);
-    articleOpr.getArticleById(req, res);
-})
-
-
 //Article Submission
-articleRouter.route('/submit')
+articleRouter.route('/compose')
 .get((req, res, next)=>{
-    console.log('GET not supported on /article/submit');
-    res.end('GET not supported on /article/submit');
+    res.sendStatus=200;
+    res.render('compose');
 })
 .put((req, res, next)=>{
     console.log('PUT/UPDATION to be added on /article/submit');
@@ -57,5 +52,44 @@ articleRouter.route('/submit')
     console.log('DELETE to be added on article/submit');
     res.end('DELETE to be added on article/submit');
 })
+
+// articleRouter.route('/delete')
+
+
+articleRouter.route('/:articleId')
+.get((req, res, next)=>{
+    Article.findById(req.params.articleId)
+    .then((article)=>{
+        res.render('article', {
+            articletitle : article.title,
+            articlebody : article.body
+        })
+    })
+    
+})
+.delete((req, res, next)=>{
+    Article.findOneAndDelete({'_id':req.params.articleId})
+    .then((article)=>{
+        res.write(article);
+        res.end("Deleted Succesfully");
+    })
+    
+})
+
+
+
+
+
+// articleRouter.route('/compose')
+// .get((req, res, next)=>{
+//     res.sendStatus=200;
+//     res.render('compose');
+// })
+// .post((req,res,next)=>{
+//     articleOpr.submitArticle(req, res);
+//     res.setHeader('content-type', 'application/json');
+//     res.json(req.body);
+// })
+
 
 module.exports=articleRouter;

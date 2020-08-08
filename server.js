@@ -16,7 +16,7 @@ var User = require('./models/user');
 var Article = require('./models/article');
 
 //Routing
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/indexRouter');
 var homeRouter = require('./routes/homeRouter');
 var userRouter = require('./routes/userRouter');
 var loginRouter = require('./routes/loginRouter');
@@ -26,6 +26,9 @@ var aboutRouter = require('./routes/aboutRouter');
 
 
 const app=express();
+
+//set view-engine to ejs
+app.set('view engine', 'ejs');
 
 //DB Connection Initialization
 mongoose.connect(dbConfig.namesdbURL, {useNewUrlParser:true, useUnifiedTopology:true});
@@ -45,8 +48,8 @@ app.use(express.static(__dirname+'/public'));
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/home', homeRouter);
-app.use('/users/login', loginRouter);
-app.use('/users/signup', signupRouter);
+app.use('/login', loginRouter);
+app.use('/signup', signupRouter);
 app.use('/about', aboutRouter);
 app.use('/article', articleRouter);
 

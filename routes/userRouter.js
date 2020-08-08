@@ -24,4 +24,5 @@ userRouter.route('/:userId')
     //userOpr.getUserByEmail(req.body.email, res);
 })
 
+
 module.exports=userRouter;

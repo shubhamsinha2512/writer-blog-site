@@ -24,22 +24,27 @@ exports.getAllArticles = (res)=>{
     .catch();
 }
 
-exports.getArticleById = (req, res)=>{
-    Article.findById(req.params.articleId)
+exports.getArticleById = async (req, res)=>{
+    var articleObj;
+    await Article.findById(req.params.articleId)
     .then((article)=>{
-        // console(`${req.params.articleId} article retrived`);
-        res.setHeader('content-type', 'application/json');
-        res.json(article);
-        incRead(article);
-    }).catch();
+        console.log(article);
+        articleObj = article;
+    });
+    console.log("this obj:" + articleObj);
+    return articleObj;
+    // .then((article)=>{
+    //     // console(`${req.params.articleId} article retrived`);
+    //     incRead(article);
+    //     console.log(article);
+    //     return article;
+    // }).catch();
 }
 
 exports.submitArticle = (req, res)=>{
-    console.log(req.body.title);
-    console.log(req.body.body);
     new Article({
         title : req.body.title,
-        body :  req.body.body,
+        body :  req.body.articlebody,
         noOfReads:0,
         coverPic:''
     }).save().catch();
