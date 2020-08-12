@@ -1,6 +1,58 @@
-<form action="/signup/register" method="post">
-    Name:<input type="text" name="name" required/>
-    Email:<input type="email" name="email" required/>
-    Pwd: <input type="password" name="password" required>
-    <button type="submit">Submit</button>
-</form>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
+
+        <script>
+
+            
+        </script>
+
+    </head>
+    <body>
+        <%- include('./partials/header.ejs') %>
+
+        <!-- <form action="/signup/register" method="post">
+            Name:<input type="text" name="name" required/>
+            Email:<input type="email" name="email" required/>
+            Pwd: <input type="password" name="password" required>
+            <button type="submit">Submit</button>
+        </form> -->
+
+        <div class="container my-5">
+            <div class="row">
+                <div class="col col-md-8 mx-auto">
+                    <form class="form-signin" action="signup/register" method="POST">
+                        <h1 class="h3 mb-3 font-weight-normal text-center">Sign Up</h1>
+
+                        <p class="h3 mb-3 font-weight-normal text-center text-danger"><%= message %></p>
+                        
+                        <input type="text" id="name" class="form-control my-4" placeholder="Name" required="" autofocus="" name="name">
+                        
+                        <input type="email" id="inputEmail" class="form-control my-4" placeholder="Email address" required="" autofocus="" name="email">
+        
+                        <input type="password" id="inputPassword" class="form-control my-4" placeholder="Password" required="" name="password">
+                         <!-- <div class="checkbox mb-3">
+                          <label>
+                            <input type="checkbox" value="remember-me"> Remember me
+                          </label>
+                        </div> -->
+                        <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+        
+                      </form>
+        
+                </div>
+            </div>
+            
+        </div>
+
+
+        <%- include('./partials/footer.ejs') %>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    </body>
+</html>

@@ -15,7 +15,7 @@ articleRouter.route('/')
     console.log("Get Request on /article");
     res.statusCode=200;
     res.setHeader('content-type', 'application/json');
-    articleOpr.getAllArticles(res);
+    articleOpr.getAllArticles();
     // res.end(articleOpr.getAllArticles());
 })
 .post((req, res, next)=>{
@@ -58,14 +58,16 @@ articleRouter.route('/compose')
 
 articleRouter.route('/:articleId')
 .get((req, res, next)=>{
-    Article.findById(req.params.articleId)
+
+    articleOpr.getArticleById(req.params.articleId)
     .then((article)=>{
+        articleOpr.incRead(article);
         res.render('article', {
             articletitle : article.title,
             articlebody : article.body,
             articleAuthor : article.author,
             timeDate : article.updatedAt,
-            reads : noOfReads
+            reads : article.noOfReads
         });
     })
     

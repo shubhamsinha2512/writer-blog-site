@@ -6,13 +6,16 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('../models/user');
 
+const cookieParser = require('cookie-parser');
+
+signupRouter.use(cookieParser('12345-67890-09876-54321'));
 signupRouter.use(bodyParser.json());
 signupRouter.use(bodyParser.urlencoded({extended:true}));
 
 
 signupRouter.route('/')
 .get((req, res, next)=>{
-    res.render('signup');
+    res.render('signup', {message: ""});
 })
 
 
@@ -24,10 +27,10 @@ signupRouter.route('/register')
             userOpr.createNewUser(req, res);
             res.statusCode=200;
             res.setHeader('content-type','application/json');
-            res.json(req.body);
+            res.redirect('home');
         }
         else{
-            res.end("User Already Exists");
+            res.render('signup', {message : "User Already Exists!"});
         }
     })
     

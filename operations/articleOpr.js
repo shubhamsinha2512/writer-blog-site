@@ -7,7 +7,7 @@ var Article = require('../models/article');
 // app.use(bodyParser.urlencoded({extended:true})); //for application/xwww-form-urlencoded
 
 //Internal Functions
-function incRead(article) {
+exports.incRead = function (article) {
     var reads = article.noOfReads+1;
     article.noOfReads=reads;
     article.save();
@@ -15,24 +15,13 @@ function incRead(article) {
 
 //Export Functions
 
-exports.getAllArticles = (res)=>{
-    Article.find({})
-    .then((articles)=>{
-        console.log('articles retrived successful');
-        res.json(articles);
-    })
-    .catch();
+exports.getAllArticles = ()=>{
+    return Article.find({});
+
 }
 
-exports.getArticleById = async (req, res)=>{
-    var articleObj;
-    await Article.findById(req.params.articleId)
-    .then((article)=>{
-        console.log(article);
-        articleObj = article;
-    }).catch(()=>{res.send("Something went wrong!")})
-    console.log("this obj:" + articleObj);
-    return articleObj;
+exports.getArticleById = (articleId)=>{
+    return Article.findById(articleId);
     // .then((article)=>{
     //     // console(`${req.params.articleId} article retrived`);
     //     incRead(article);
