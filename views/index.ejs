@@ -1,8 +1,15 @@
 <html>
     <head>
-        <title>Writer Home</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
+
+        <style>
+
+        </style>
+
     </head>
     <body>
+        <%- include('./partials/header.ejs') %>
         <ul>
 
         <li><a href="/login">Login</a></li>
@@ -10,8 +17,13 @@
         <li><a href="/article/compose">Compose New Article</a></li>
         <li><a href="/article">Show All Articles</a></li>
         
+        </ul>
         
-    </ul>
-        
+    
+    <footer class="page-footer bg-dark ">
+        <div class="footer-copyright text-center py-3 text-light">© 2020 Copyright:
+            <a href="/about" > Shubham Sinha</a>
+          </div>
+    </footer>
     </body>
 </html>

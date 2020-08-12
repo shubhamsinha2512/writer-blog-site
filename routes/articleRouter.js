@@ -4,8 +4,7 @@ var articleOpr = require('../operations/articleOpr');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Article = require('../models/article');
-const { render } = require('ejs');
-const article = require('../models/article');
+const ejs = require('ejs');
 
 articleRouter.use(bodyParser.json());
 articleRouter.use(bodyParser.urlencoded({extended:true}));
@@ -17,6 +16,7 @@ articleRouter.route('/')
     res.statusCode=200;
     res.setHeader('content-type', 'application/json');
     articleOpr.getAllArticles(res);
+    // res.end(articleOpr.getAllArticles());
 })
 .post((req, res, next)=>{
     console.log('POST not supported on /article');
@@ -62,8 +62,11 @@ articleRouter.route('/:articleId')
     .then((article)=>{
         res.render('article', {
             articletitle : article.title,
-            articlebody : article.body
-        })
+            articlebody : article.body,
+            articleAuthor : article.author,
+            timeDate : article.updatedAt,
+            reads : noOfReads
+        });
     })
     
 })

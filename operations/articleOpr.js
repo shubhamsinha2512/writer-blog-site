@@ -30,7 +30,7 @@ exports.getArticleById = async (req, res)=>{
     .then((article)=>{
         console.log(article);
         articleObj = article;
-    });
+    }).catch(()=>{res.send("Something went wrong!")})
     console.log("this obj:" + articleObj);
     return articleObj;
     // .then((article)=>{
@@ -45,8 +45,16 @@ exports.submitArticle = (req, res)=>{
     new Article({
         title : req.body.title,
         body :  req.body.articlebody,
+        author: req.body.author,
         noOfReads:0,
         coverPic:''
-    }).save().catch();
+    }).save();
+    
+    res.render('article', {
+        articletitle : req.body.title,
+        articlebody : req.body.articlebody,
+        articleAuthor : req.body.author,
+        timeDate:'None',
+        reads : 0
+    })
 }
-

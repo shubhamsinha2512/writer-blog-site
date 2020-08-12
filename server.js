@@ -37,7 +37,9 @@ app.use(morgan('dev'));
 app.use(bodyParser.json()); //for application/json
 app.use(bodyParser.urlencoded({extended:true})); //for application/xwww-form-urlencoded
 app.use(express.static(__dirname+'/public'));
+console.log(__dirname);
 
+//localhost:3000/public
 // app.get('/',(req, res, next)=>{
 //     res.statusCode=200;
 //     res.setHeader("Content-Type", 'text/html');
