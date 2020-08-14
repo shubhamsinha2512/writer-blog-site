@@ -4,23 +4,24 @@ const User = require('../models/user');
 const cookieParser = require('cookie-parser');
 const userOpr = require('../operations/userOpr');
 
-exports.login =   (req, res)=>{
-        userOpr.getUserByEmail(req.body.email)
+exports.login =  (userEmail, userPwd)=>{
+        return userOpr.getUserByEmail(userEmail)
         .then((user)=>{
-            console.log(user);
-            if(user){
-                if(req.body.password === user.password){
-                    // res.cookie('user', user.email, {signed: true});
-                    return true;
+            // console.log(user);
+                if(user){
+                    if(userPwd === user.password){
+                        console.log("correct")
+                        return true;
+                    }
+                    else{
+                        console.log("Incorrect Password!");
+                        return false;
+                    }          
                 }
                 else{
-                    // res.end("Incorrect Password!");
-                    return false;
-                }          
-            }
-            else{
-                // res.end("No User Found - Signup!");
+                    // res.end("No User Found - Signup!");
+                        return false;
+                }
                 return false;
-            }
-        });
+            })
     }

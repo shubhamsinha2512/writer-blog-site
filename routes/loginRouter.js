@@ -19,16 +19,23 @@ loginRouter.route('/')
     res.render('login');
 })
 .post((req, res, next)=>{
-    var loginStatus = authenticate.login(req, res);
-    if(loginStatus){
-        // articleOpr.getAllArticles
-        console.log(loginStatus);
-        res.redirect('/')
-    }
-    else{
-        console.log(loginStatus);
-        res.redirect('/login');
-    }
+    
+    authenticate.login(req.body.email, req.body.password).then((status)=>{
+        if(status){
+            // articleOpr.getAllArticles
+            console.log("pass:");
+            res.cookie('user', req.body.email, {signed: true});
+            res.redirect('/');
+        }
+        else{
+            console.log("fail:");
+            res.redirect('/login');
+        }
+    })   
+    // console.log(authenticate.login(req, res).then((value)=>{
+    //     console.log(value);
+    // })); 
+
 })
 
 module.exports=loginRouter;

@@ -5,6 +5,7 @@ var userOpr = require('../operations/userOpr');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('../models/user');
+const authenticate = require('../operations/authenticate');
 
 const cookieParser = require('cookie-parser');
 
@@ -26,6 +27,7 @@ signupRouter.route('/register')
         if(!user){
             userOpr.createNewUser(req, res);
             res.statusCode=200;
+            authenticate.login(req.body.email, req.body.password);
             res.setHeader('content-type','application/json');
             res.redirect('home');
         }
