@@ -1,11 +1,17 @@
 var express = require('express');
 var articleRouter = express.Router();
 var articleOpr = require('../operations/articleOpr');
+var userOpr = require('../operations/userOpr');
+const authenticate = require('../operations/authenticate');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Article = require('../models/article');
 const ejs = require('ejs');
+const serverConfig = require('../configurations/serverConfig');
+const cookieParser = require('cookie-parser');
 
+
+articleRouter.use(cookieParser(serverConfig.cookieSecret));
 articleRouter.use(bodyParser.json());
 articleRouter.use(bodyParser.urlencoded({extended:true}));
 console.log("before get - articleRouter");
@@ -35,8 +41,24 @@ articleRouter.route('/')
 //Article Submission
 articleRouter.route('/compose')
 .get((req, res, next)=>{
-    res.sendStatus=200;
-    res.render('compose');
+    
+    if(req.signedCookies.user){
+        userOpr.getUserByEmail(req.signedCookies.user)
+        .then((user)=>{
+            res.sendStatus=200;
+            res.render('compose', {
+                user: {
+                    userdetails: user
+                }
+            });
+        })
+        
+    }
+    else{
+        res.statusCode=401;
+        res.render('login', {user:null});
+    }
+
 })
 .put((req, res, next)=>{
     console.log('PUT/UPDATION to be added on /article/submit');
@@ -45,8 +67,8 @@ articleRouter.route('/compose')
 .post((req, res, next)=>{
     console.log('POST on /article/submit');
     articleOpr.submitArticle(req, res);
-    res.statusCode=200;
-    res.end("Article Submitted Successfully");
+    // res.statusCode=200;
+    // res.end("Article Submitted Successfully");
 })
 .delete((req, res, next)=>{
     console.log('DELETE to be added on article/submit');
@@ -62,13 +84,25 @@ articleRouter.route('/:articleId')
     articleOpr.getArticleById(req.params.articleId)
     .then((article)=>{
         articleOpr.incRead(article);
-        res.render('article', {
-            articletitle : article.title,
-            articlebody : article.body,
-            articleAuthor : article.author,
-            timeDate : article.updatedAt,
-            reads : article.noOfReads
-        });
+        if(req.signedCookies.user){
+            userOpr.setLastRead(req.signedCookies.user, article._id);
+            userOpr.getUserByEmail(req.signedCookies.user)
+            .then((user)=>{
+                var userObj = {
+                    user: {userdetails:user},
+                    article: article
+                }
+                res.render('article', userObj);
+            })
+        }
+        else{
+            var userObj = {
+                user: null,
+                article: article
+            }
+            res.render('article', userObj);
+        }
+
     })
     
 })

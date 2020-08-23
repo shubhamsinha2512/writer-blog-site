@@ -7,8 +7,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('../models/user');
 const cookieParser = require('cookie-parser');
+const serverConfig = require('../configurations/serverConfig');
 
-loginRouter.use(cookieParser('12345-67890-09876-54321'));
+loginRouter.use(cookieParser(serverConfig.cookieSecret));
 loginRouter.use(bodyParser.json());
 loginRouter.use(bodyParser.urlencoded({extended:true}));
 
@@ -16,7 +17,7 @@ loginRouter.use(bodyParser.urlencoded({extended:true}));
 loginRouter.route('/')
 .get((req, res, next)=>{
     res.statusCode=200;
-    res.render('login');
+    res.render('login', {user:null, message:""});
 })
 .post((req, res, next)=>{
     
@@ -29,7 +30,12 @@ loginRouter.route('/')
         }
         else{
             console.log("fail:");
-            res.redirect('/login');
+            var userObj = {
+                user:null,
+                message:"Invalid Credentials"
+            }
+            console.log(userObj)
+            res.render('login', userObj);
         }
     })   
     // console.log(authenticate.login(req, res).then((value)=>{

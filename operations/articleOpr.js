@@ -3,6 +3,9 @@ var bodyParser = require('body-parser');
 
 var Article = require('../models/article');
 
+const User = require('../models/user');
+const userOpr = require('../operations/userOpr');
+
 // app.use(bodyParser.json()); //for application/json
 // app.use(bodyParser.urlencoded({extended:true})); //for application/xwww-form-urlencoded
 
@@ -31,19 +34,31 @@ exports.getArticleById = (articleId)=>{
 }
 
 exports.submitArticle = (req, res)=>{
-    new Article({
-        title : req.body.title,
-        body :  req.body.articlebody,
-        author: req.body.author,
-        noOfReads:0,
-        coverPic:''
-    }).save();
-    
-    res.render('article', {
-        articletitle : req.body.title,
-        articlebody : req.body.articlebody,
-        articleAuthor : req.body.author,
-        timeDate:'None',
-        reads : 0
+    console.log(req.signedCookies.user);
+    userOpr.getUserByEmail(req.signedCookies.user)
+    .then((user)=>{
+        // console.log(user);
+        new Article({
+            title : req.body.title,
+            body :  req.body.articlebody,
+            author: user._id,
+            noOfReads:0,
+            coverPic:''
+        }).save();
+        
+        res.render('article', {
+            user:{userdetails:user},
+            article: {
+            title : req.body.title,
+            body : req.body.articlebody,
+            author : user.name,
+            timeDate:'None',
+            reads : 0
+            }
+        })
     })
+}
+
+exports.getUserArticles = (userId)=>{
+    return Article.find({author:userId});
 }

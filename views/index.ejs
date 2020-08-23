@@ -20,27 +20,42 @@
 
         <div class="container" id="articleContainer ">
             <div class="row my-5">
-        <% for(var i=0; i<allArticles.length;i++) { %>
-
+        <% for(var i=0, j=i-1; i<=allArticles.length;i++,j++) { %>
+            
             <%if(i==0) { %>
+                <% if(user==null) { %>
+                    
                     <a href="/article/<%=allArticles[i]._id %>" style="text-decoration: none; color: inherit;">
-                        <div class="card col-lg-8 mx-auto">
-                            <h5 class="card-header">Featured</h5>
+                        <div class="card col-lg-4">
                             <div class="card-body">
                                 <h5 class="card-title"><%= allArticles[i].title %></h5>
-                                <p class="card-text"><%= (allArticles[i].body).slice(0, 200)%><a href="#" class="">...</a></p>
+                                <p class="card-text"><%= (allArticles[i].body).slice(0, 200)%><a href="/article/<%=allArticles[i]._id %>" class="">...</a></p>
                             </div>
                         </div>
                     </a>
-            
-            <% }else{   %>
+                
+                <% } else { %>
+                    <% if (user.lastarticle != null) { %>
+                    
+                        <a href="/article/<%=user.lastarticle._id %>" style="text-decoration: none; color: inherit;">
+                            <div class="card col-lg-12">
+                                <h5 class="card-header">Last Read</h5>
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= user.lastarticle.title %></h5>
+                                    <p class="card-text"><%= (user.lastarticle.body).slice(0, 200)%><a href="/article/<%=user.lastarticle._id %>" class=""> Continue Reading...</a></p>
+                                </div>
+                            </div>
+                        </a>
+                    <% } %>
 
-                    <a href="/article/<%=allArticles[i]._id %>" style="text-decoration: none; color: inherit;">
-                        <div class="card col-lg-4">
-                            <h5 class="card-header"></h5>
+            
+            <% }  }else{   %>
+
+                    <a href="/article/<%=allArticles[j]._id %>" style="text-decoration: none; color: inherit;">
+                        <div class="card col-lg-4 mx-1 my-1">
                             <div class="card-body">
-                                <h5 class="card-title"><%= allArticles[i].title %></h5>
-                                <p class="card-text"><%= (allArticles[i].body).slice(0, 200)%><a href="#" class="">...</a></p>
+                                <h5 class="card-title"><%= allArticles[j].title %></h5>
+                                <p class="card-text"><%= (allArticles[j].body).slice(0, 200)%><a href="/article/<%=allArticles[j]._id %>" class="">...</a></p>
                             </div>
                         </div>
                     </a>

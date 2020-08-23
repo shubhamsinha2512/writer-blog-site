@@ -8,15 +8,16 @@ const User = require('../models/user');
 const authenticate = require('../operations/authenticate');
 
 const cookieParser = require('cookie-parser');
+const serverConfig = require('../configurations/serverConfig');
 
-signupRouter.use(cookieParser('12345-67890-09876-54321'));
+signupRouter.use(cookieParser(serverConfig.cookieSecret));
 signupRouter.use(bodyParser.json());
 signupRouter.use(bodyParser.urlencoded({extended:true}));
 
 
 signupRouter.route('/')
 .get((req, res, next)=>{
-    res.render('signup', {message: ""});
+    res.render('signup', {user:null, message: ""});
 })
 
 
@@ -27,12 +28,11 @@ signupRouter.route('/register')
         if(!user){
             userOpr.createNewUser(req, res);
             res.statusCode=200;
-            authenticate.login(req.body.email, req.body.password);
-            res.setHeader('content-type','application/json');
-            res.redirect('home');
+            res.cookie('user', req.body.email, {signed: true});
+            res.redirect('/');
         }
         else{
-            res.render('signup', {message : "User Already Exists!"});
+            res.render('signup', {user:null, message : "User Already Exists!"});
         }
     })
     

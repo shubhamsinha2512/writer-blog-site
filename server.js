@@ -23,6 +23,7 @@ var loginRouter = require('./routes/loginRouter');
 var signupRouter = require('./routes/signupRouter');
 var articleRouter = require('./routes/articleRouter');
 var aboutRouter = require('./routes/aboutRouter');
+var profileRouter = require('./routes/profileRouter');
 
 
 const app=express();
@@ -54,6 +55,7 @@ app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 app.use('/about', aboutRouter);
 app.use('/article', articleRouter);
+app.use('/profile', profileRouter);
 
 http.createServer(app).listen(port, domain, ()=>{
     console.log(`Server started at port ${port}`);

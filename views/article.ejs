@@ -14,12 +14,12 @@
         <div class="container">
             <div class="row my-5">
                 <div class="col-lg-8 my-4">
-                    <h1 class='h1'><%= articletitle %></h1>
+                    <h1 class='h1'><%= article.title %></h1>
                     
-                    <span class="float-sm-left"><%= articleAuthor %></span><br/>
-                    <span class="float-sm-left"><%= timeDate %></span>
+                    <span class="float-sm-left"><%= article.author %></span><br/>
+                    <span class="float-sm-left"><%= article.timeDate %></span>
                     <button class="float-sm-right fav">Favourite</button><br/>
-                    <p class=" mt-5"> <%= articlebody %> </p>
+                    <p class=" mt-5"> <%= article.body %> </p>
                 </div>
                 <div class="col-lg-4 my-4">
                     Suggested Articles
