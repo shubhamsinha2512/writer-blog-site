@@ -54,7 +54,8 @@ exports.submitArticle = (req, res)=>{
             author : user.name,
             timeDate:'None',
             reads : 0
-            }
+            },
+            author:user.name
         })
     })
 }
@@ -62,3 +63,18 @@ exports.submitArticle = (req, res)=>{
 exports.getUserArticles = (userId)=>{
     return Article.find({author:userId});
 }
+
+exports.addComment = (userId, articleId, comment) =>{
+    Article.findById(articleId).then((article)=>{
+        var comm = new Comment({
+            author:userId,
+            comment:comment
+        });
+
+        article.comments.push(comm).save();
+    })
+}
+
+// exports.getComments = (articleId)=>{
+//     Article.findById(articleId)
+// }

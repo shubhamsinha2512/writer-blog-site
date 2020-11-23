@@ -1,5 +1,6 @@
 <html>
-    <head>
+
+<head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
 
@@ -7,8 +8,11 @@
 
         </style>
 
-    </head>
-    <body>
+        <title>Sign Up | Writer</title>
+
+</head>
+
+<body>
         <%- include('./partials/header.ejs') %>
 
         <div class="container my-5">
@@ -18,30 +22,34 @@
 
                 <div class="row my-3">
                         <div class="col-lg-10">
-                        <form action="/article/compose" method="post">
-                                <!-- Title -->
-                                <div class="input-group input-group-lg mb-4">
-                                        <div class="input-group-prepend">
-                                          <span class="input-group-text" id="inputGroup-sizing-lg">Title</span>
+                                <form action="/article/compose" method="post">
+                                        <!-- Title -->
+                                        <div class="input-group input-group-lg mb-4">
+                                                <div class="input-group-prepend">
+                                                        <span class="input-group-text"
+                                                                id="inputGroup-sizing-lg">Title</span>
+                                                </div>
+                                                <input type="text" class="form-control" aria-label="Large"
+                                                        aria-describedby="inputGroup-sizing-sm" name="title">
                                         </div>
-                                        <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" name="title">
-                                </div>
-                                
-                                <!-- Article Body -->
-                                <div class="input-group mb-4">
-                                        <textarea class="form-control" aria-label="With textarea" name="articlebody" rows="10"></textarea>
-                                </div>
-                                <!-- Author: <input type="text" name="author"/>
+
+                                        <!-- Article Body -->
+                                        <div class="input-group mb-4">
+                                                <textarea class="form-control" aria-label="With textarea"
+                                                        name="articlebody" rows="10"></textarea>
+                                        </div>
+                                        <!-- Author: <input type="text" name="author"/>
                                 Article: <textarea type="text" name="articlebody"></textarea> -->
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                        </div>
                 </div>
 
         </div>
 
-        
+
 
         <%- include('./partials/footer.ejs') %>
-    </body>
+</body>
+
 </html>

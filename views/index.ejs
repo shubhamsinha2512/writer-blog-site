@@ -1,79 +1,93 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
 
-        <script>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
 
-            
-        </script>
+    <script>
 
-    </head>
-    <body>
-        <%- include('./partials/header.ejs') %>
-        <!-- <ul>
+
+    </script>
+
+    <title>Home | Writer</title>
+
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+    <!-- <ul>
             <li><a href="/login">Login</a></li>
             <li><a href="/signup">Sign Up</a></li>
             <li><a href="/article/compose">Compose New Article</a></li>
             <li><a href="/article">Show All Articles</a></li>
         </ul> -->
 
-        <div class="container" id="articleContainer ">
-            <div class="row my-5">
-        <% for(var i=0, j=i-1; i<=allArticles.length;i++,j++) { %>
-            
-            <%if(i==0) { %>
-                <% if(user==null) { %>
-                    
-                    <a href="/article/<%=allArticles[i]._id %>" style="text-decoration: none; color: inherit;">
-                        <div class="card col-lg-4">
-                            <div class="card-body">
-                                <h5 class="card-title"><%= allArticles[i].title %></h5>
-                                <p class="card-text"><%= (allArticles[i].body).slice(0, 200)%><a href="/article/<%=allArticles[i]._id %>" class="">...</a></p>
-                            </div>
-                        </div>
-                    </a>
-                
-                <% } else { %>
-                    <% if (user.lastarticle != null) { %>
-                    
-                        <a href="/article/<%=user.lastarticle._id %>" style="text-decoration: none; color: inherit;">
-                            <div class="card col-lg-12">
-                                <h5 class="card-header">Last Read</h5>
-                                <div class="card-body">
-                                    <h5 class="card-title"><%= user.lastarticle.title %></h5>
-                                    <p class="card-text"><%= (user.lastarticle.body).slice(0, 200)%><a href="/article/<%=user.lastarticle._id %>" class=""> Continue Reading...</a></p>
-                                </div>
-                            </div>
-                        </a>
-                    <% } %>
+    <div class="container" id="articleContainer ">
+        <div class="row my-5">
+            <% for(var i=0, j=i-1; i<=allArticles.length;i++,j++) { %>
 
-            
+            <%if(i==0) { %>
+            <% if(user==null) { %>
+
+            <a href="/article/<%=allArticles[i]._id %>" style="text-decoration: none; color: inherit;">
+                <div class="card col-lg-4">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= allArticles[i].title %></h5>
+                        <p class="card-text"><%= (allArticles[i].body).slice(0, 200)%><a
+                                href="/article/<%=allArticles[i]._id %>" class="">...</a></p>
+                    </div>
+                </div>
+            </a>
+
+            <% } else { %>
+            <% if (user.lastarticle != null) { %>
+
+            <a href="/article/<%=user.lastarticle._id %>" style="text-decoration: none; color: inherit;">
+                <div class="card col-lg-12 my-4 lr">
+                    <h5 class="card-header bg-primary text-white">Last Read</h5>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= user.lastarticle.title %></h5>
+                        <p class="card-text"><%= (user.lastarticle.body).slice(0, 200)%><a
+                                href="/article/<%=user.lastarticle._id %>" class="">...</a></p>
+                    </div>
+                </div>
+            </a>
+            <% } %>
+
+
             <% }  }else{   %>
 
-                    <a href="/article/<%=allArticles[j]._id %>" style="text-decoration: none; color: inherit;">
-                        <div class="card col-lg-4 mx-1 my-1">
-                            <div class="card-body">
-                                <h5 class="card-title"><%= allArticles[j].title %></h5>
-                                <p class="card-text"><%= (allArticles[j].body).slice(0, 200)%><a href="/article/<%=allArticles[j]._id %>" class="">...</a></p>
-                            </div>
-                        </div>
-                    </a>
-                <% } %>
+            <a href="/article/<%=allArticles[j]._id %>" style="text-decoration: none; color: inherit;">
+                <div class="card col-lg-4 article_cards my-2">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= allArticles[j].title %></h5>
+                        <p class="card-text"><%= (allArticles[j].body).slice(0, 200)%><a
+                                href="/article/<%=allArticles[j]._id %>" class="">...</a></p>
+                    </div>
+                </div>
+            </a>
+            <% } %>
             <%  } %>
         </div>
     </div>
-    
+
     <footer class="page-footer bg-dark ">
         <div class="footer-copyright text-center py-3 text-light">© 2020 Copyright:
-            <a href="/about" > Shubham Sinha</a>
+            <a href="/about"> Shubham Sinha</a>
         </div>
     </footer>
 
 
     <!-- Scripts -->
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    </body>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+</body>
+
 </html>

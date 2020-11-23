@@ -85,12 +85,17 @@ articleRouter.route('/:articleId')
     .then((article)=>{
         articleOpr.incRead(article);
         if(req.signedCookies.user){
+            var author = "";
+            userOpr.getAuthorDetails(article.author).then((value)=>{
+                author=value.name;
+            })
             userOpr.setLastRead(req.signedCookies.user, article._id);
             userOpr.getUserByEmail(req.signedCookies.user)
             .then((user)=>{
                 var userObj = {
                     user: {userdetails:user},
-                    article: article
+                    article: article,
+                    author : author
                 }
                 res.render('article', userObj);
             })
@@ -116,19 +121,20 @@ articleRouter.route('/:articleId')
 })
 
 
+articleRouter.route('/compose')
+.get((req, res, next)=>{
+    res.sendStatus=200;
+    res.render('compose');
+})
+.post((req,res,next)=>{
+    articleOpr.submitArticle(req, res);
+    res.setHeader('content-type', 'application/json');
+    res.json(req.body);
+})
 
-
-
-// articleRouter.route('/compose')
-// .get((req, res, next)=>{
-//     res.sendStatus=200;
-//     res.render('compose');
-// })
-// .post((req,res,next)=>{
-//     articleOpr.submitArticle(req, res);
-//     res.setHeader('content-type', 'application/json');
-//     res.json(req.body);
-// })
-
+articleRouter.route('/article/compose')
+.get((res, req, next)=>{
+    req.redirect('/compose');
+})
 
 module.exports=articleRouter;

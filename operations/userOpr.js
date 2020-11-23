@@ -49,3 +49,7 @@ exports.checkAuthorizedCookie = (req) => {
         return false;
     }
 }
+
+exports.getAuthorDetails = (authorId) => {
+    return User.findById(authorId);
+}

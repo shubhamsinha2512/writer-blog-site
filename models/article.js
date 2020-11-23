@@ -3,6 +3,20 @@ const { ObjectId } = require('mongodb');
 var Schema = mongoose.Schema;
 mongoose.pluralize(null);
 
+
+var commentSchema = new Schema({
+    author:{
+        type:ObjectId,
+        required: [true, "Comment author not specified"]
+    },
+    comment:{
+        type:String,
+        required:[true, "comment body required"]
+    }
+}, {
+    timestamps:true
+});
+
 var articleSchema=new Schema({
     title:{
         type:String,
@@ -22,7 +36,8 @@ var articleSchema=new Schema({
     },
     coverPic:{
         type:String
-    }
+    },
+    comments:[commentSchema]
 }, {
     timestamps:true
 });

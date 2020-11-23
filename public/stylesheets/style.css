@@ -2,3 +2,24 @@
   position: absolute;
   bottom: 0;
 } */
+
+/* .container{
+
+} */
+
+.lr{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.article_cards{
+  border: none;
+}
+
+.article_cards:hover{
+  box-shadow: 0px 0px 5px rgb(184, 184, 184);
+}
+
+.post-comment{
+  padding: 0;
+}
