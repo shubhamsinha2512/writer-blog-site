@@ -65,15 +65,20 @@ exports.getUserArticles = (userId)=>{
     return Article.find({author:userId});
 }
 
-exports.addComment = (userId, articleId, comment) =>{
+exports.addComment = (useremail, articleId, comment) =>{
     Article.findById(articleId).then((article)=>{
-        var comm = new Comment({
-            author:userId,
-            comment:comment
-        });
+        userOpr.getUserByEmail(useremail).then((user)=>{
+            console.log(user.name);
+            var comm = new Comment({
+                author:user._id,
+                name:user.name,
+                comment:comment
+            });
+            article.comments.push(comm);
+            console.log(article.comments);
+            article.save();
+        })
 
-        article.comments += comm;
-        article.save();
     })
 }
 

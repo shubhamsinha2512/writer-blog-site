@@ -105,7 +105,8 @@ articleRouter.route('/:articleId')
             userOpr.getAuthorDetails(article.author).then((value)=>{
                 author=value.name;
             })
-            //articleOpr.addComment(req.signedCookies.user, article._id, "hello test comment");
+            //console.log(req.signedCookies);
+            //articleOpr.addComment(req.signedCookies.user, article._id, "another test comment");
             userOpr.setLastRead(req.signedCookies.user, article._id);
             userOpr.getUserByEmail(req.signedCookies.user)
             .then((user)=>{
@@ -161,6 +162,14 @@ articleRouter.route('/article/compose')
     req.redirect('/compose');
 })
 
+articleRouter.route('/comment')
+.get((req, res)=>{
+
+})
+.post((req,res)=>{
+    articleOpr.addComment(req.signedCookies.user, req.body.article_id, req.body.comment);
+    res.redirect(req.body.article_id);
+})
 
 
 module.exports=articleRouter;

@@ -41,13 +41,22 @@
 
         <div class="comment_section">
             <section class="col-lg-8 post-comment">
-                <form action="/postcomment" method="post">
+                <form action="comment" method="post">
                     <div class="form-group">
                         <h3>Comments</h3>
-                        <textarea class="form-control" id="comment-body" rows="3"></textarea>
+                        <input type="text" value="<%=article._id%>" name="article_id" hidden>
+                        <textarea class="form-control" name="comment" rows="3"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Post</button>
                 </form>
+            </section>
+            <section class="read-comments">
+                <% for(var i=0;i<=article.comments.length-1;i++) {%>
+                <div class="card-body">
+                    <h6><%= article.comments[i].author %></h6>
+                    <p><%= article.comments[i].comment %></p>
+                </div>
+                <% } %>
             </section>
         </div>
     </div>

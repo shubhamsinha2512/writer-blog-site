@@ -9,6 +9,10 @@ var commentSchema = new Schema({
         type:ObjectId,
         required: [true, "Comment author not specified"]
     },
+    name:{
+        type:String,
+        //required:true
+    },
     comment:{
         type:String,
         required:[true, "comment body required"]
