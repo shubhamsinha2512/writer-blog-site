@@ -15,9 +15,9 @@
             <div class="col-lg-8 mt-4">
                 <h1 class='h1'><%= article.title %></h1>
                 <br />
-                <h5 class="float-sm-left text-secondary"><%= author %></h5>
+                <h5 class="float-sm-left text-secondary"><%= article.author %></h5>
                 <span class="float-sm-right text-secondary"><%= article.createdAt %></span><br/><br/>
-                <button class="float-sm-right fav btn btn-warning">Favourite</button><br />
+                <button class="float-sm-right fav btn btn-warning" onclick="">Favourite</button><br />
                 <p class="article-body mt-5"> <%= article.body %> </p>
             </div>
             <div class="col-lg-4 my-4">

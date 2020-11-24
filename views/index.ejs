@@ -30,8 +30,9 @@
             <% if(user==null) { %>
 
             <a href="/article/<%=allArticles[i]._id %>" style="text-decoration: none; color: inherit;">
-                <div class="card col-lg-4">
-                    <div class="card-body">
+                <div class="card col-lg-12 lr text-white">
+                    <img src="/uploads/<%=allArticles[i].coverPic%>" class="bg-img" alt="">
+                    <div class="card-body overlay">
                         <h5 class="card-title"><%= allArticles[i].title %></h5>
                         <p class="card-text"><%= (allArticles[i].body).slice(0, 200)%><a
                                 href="/article/<%=allArticles[i]._id %>" class="">...</a></p>

@@ -47,16 +47,20 @@ exports.submitArticle = (req, res)=>{
             coverPic:req.file.filename
         }).save();
         
-        res.render('article', {
-            user:{userdetails:user},
-            article: {
-            title : req.body.title,
-            body : req.body.articlebody,
-            author : user.name,
-            timeDate:'None',
-            reads : 0
-            },
-            author:user
+        this.getAllArticles().then((articles)=>{
+            res.render('article', {
+                user:{userdetails:user},
+                article: {
+                title : req.body.title,
+                body : req.body.articlebody,
+                author : user.name,
+                timeDate:'None',
+                reads : 0,
+                comments:[]
+                },
+                author:user,
+                allArticles:articles
+            })
         })
     })
 }

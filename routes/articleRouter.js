@@ -68,7 +68,7 @@ articleRouter.route('/compose')
     }
     else{
         res.statusCode=401;
-        res.render('login', {user:null});
+        res.render('login', {user:null, message:""});
     }
 
 })
@@ -97,6 +97,7 @@ articleRouter.route('/:articleId')
     articleOpr.getArticleById(req.params.articleId)
     .then((article)=>{
         articleOpr.incRead(article);
+        var allArticles;
         if(req.signedCookies.user){
             var author = "";
             //var allArticles="hello";
@@ -110,11 +111,12 @@ articleRouter.route('/:articleId')
             userOpr.setLastRead(req.signedCookies.user, article._id);
             userOpr.getUserByEmail(req.signedCookies.user)
             .then((user)=>{
-                var allArticles;
+                
                 articleOpr.getAllArticles().then((articles)=>{
                     //console.log(articles);
                     allArticles=articles;
-                    //console.log(allArticles);
+
+                    console.log(allArticles);
                     var userObj = {
                         user: {userdetails:user},
                         article: article,
@@ -126,13 +128,16 @@ articleRouter.route('/:articleId')
             })
         }
         else{
-            var userObj = {
-                user: null,
-                article: article
-            }
+            articleOpr.getAllArticles().then((articles)=>{
+                allArticles=articles;
+                var userObj = {
+                    user: null,
+                    article: article,
+                    allArticles:allArticles
+                }
             res.render('article', userObj);
-        }
-
+        });
+    }
     })
     
 })
