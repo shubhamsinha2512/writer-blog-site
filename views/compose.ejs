@@ -22,12 +22,11 @@
 
                 <div class="row my-3">
                         <div class="col-lg-10">
-                                <form action="/article/compose" method="post">
+                                <form action="/article/compose" method="post" enctype="multipart/form-data">
                                         <!-- Title -->
                                         <div class="input-group input-group-lg mb-4">
                                                 <div class="input-group-prepend">
-                                                        <span class="input-group-text"
-                                                                id="inputGroup-sizing-lg">Title</span>
+                                                        <span class="input-group-text" id="inputGroup-sizing-lg">Title</span>
                                                 </div>
                                                 <input type="text" class="form-control" aria-label="Large"
                                                         aria-describedby="inputGroup-sizing-sm" name="title">
@@ -38,6 +37,11 @@
                                                 <textarea class="form-control" aria-label="With textarea"
                                                         name="articlebody" rows="10"></textarea>
                                         </div>
+
+                                        <div class="input-group">
+                                                <input type="file" name="blogimage" required/>
+                                        </div>
+                                        
                                         <!-- Author: <input type="text" name="author"/>
                                 Article: <textarea type="text" name="articlebody"></textarea> -->
                                         <button type="submit" class="btn btn-primary">Submit</button>

@@ -43,11 +43,12 @@
             <% if (user.lastarticle != null) { %>
 
             <a href="/article/<%=user.lastarticle._id %>" style="text-decoration: none; color: inherit;">
-                <div class="card col-lg-12 my-4 lr">
-                    <h5 class="card-header bg-primary text-white">Last Read</h5>
-                    <div class="card-body">
-                        <h5 class="card-title"><%= user.lastarticle.title %></h5>
-                        <p class="card-text"><%= (user.lastarticle.body).slice(0, 200)%><a
+                <div class="card col-lg-12 my-4 text-white lr">
+                    <img src="/uploads/<%=user.lastarticle.coverPic%>" class="bg-img" alt="">
+                    <!-- <h5 class="card-header bg-primary text-white">Last Read</h5>    -->
+                    <div class="card-body overlay">
+                        <h4 class="card-title article-title"><%= user.lastarticle.title %></h4>
+                        <p class="card-text"><%= (user.lastarticle.body).slice(0, 300)%><a
                                 href="/article/<%=user.lastarticle._id %>" class="">...</a></p>
                     </div>
                 </div>
@@ -58,10 +59,12 @@
             <% }  }else{   %>
 
             <a href="/article/<%=allArticles[j]._id %>" style="text-decoration: none; color: inherit;">
-                <div class="card col-lg-4 article_cards my-2">
-                    <div class="card-body">
+                <div class="card col-lg-4 article_cards my-2 text-white">
+                    <img src="/uploads/<%=allArticles[j].coverPic%>" class="bg-img" alt="">
+                    <div class="black-overlay"></div>
+                    <div class="card-body overlay">
                         <h5 class="card-title"><%= allArticles[j].title %></h5>
-                        <p class="card-text"><%= (allArticles[j].body).slice(0, 200)%><a
+                        <p class="card-text"><%= (allArticles[j].body).slice(0, 100)%><a
                                 href="/article/<%=allArticles[j]._id %>" class="">...</a></p>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
 var Article = require('../models/article');
+var Comment = require('../models/comment');
 
 const User = require('../models/user');
 const userOpr = require('../operations/userOpr');
@@ -34,7 +35,7 @@ exports.getArticleById = (articleId)=>{
 }
 
 exports.submitArticle = (req, res)=>{
-    console.log(req.signedCookies.user);
+    //console.log(req.signedCookies.user);
     userOpr.getUserByEmail(req.signedCookies.user)
     .then((user)=>{
         // console.log(user);
@@ -43,7 +44,7 @@ exports.submitArticle = (req, res)=>{
             body :  req.body.articlebody,
             author: user._id,
             noOfReads:0,
-            coverPic:''
+            coverPic:req.file.filename
         }).save();
         
         res.render('article', {
@@ -55,7 +56,7 @@ exports.submitArticle = (req, res)=>{
             timeDate:'None',
             reads : 0
             },
-            author:user.name
+            author:user
         })
     })
 }
@@ -71,7 +72,8 @@ exports.addComment = (userId, articleId, comment) =>{
             comment:comment
         });
 
-        article.comments.push(comm).save();
+        article.comments += comm;
+        article.save();
     })
 }
 

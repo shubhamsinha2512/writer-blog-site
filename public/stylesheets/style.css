@@ -10,16 +10,47 @@
 .lr{
   padding-left: 0;
   padding-right: 0;
+  height: 40vh;
+  opacity: 0.8;
 }
 
 .article_cards{
   border: none;
+  height: 35vh;
+  opacity: 0.8;
 }
 
 .article_cards:hover{
   box-shadow: 0px 0px 5px rgb(184, 184, 184);
 }
 
+.article_cards-article{
+  border: none;
+  height: 20vh;
+  opacity: 0.8;
+}
+
 .post-comment{
   padding: 0;
+}
+
+.card{
+  overflow: hidden;
+}
+
+.bg-img{
+  z-index:1;
+}
+
+.card-body{
+  z-index: 2;
+}
+
+.overlay{
+  position: absolute;
+  padding: 30px;
+}
+
+.article-body{
+  text-align: justify;
 }

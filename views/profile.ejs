@@ -32,6 +32,7 @@
 
 
                 <h1><%= user.userdetails.name %></h1>
+                <h5>E-mail : <%= user.userdetails.email %></h5>
                 <p class="description"><%= user.userdetails.description %></p>
                 <p class="admin">
                     <% if(user.userdetails.admin) { %>
@@ -42,16 +43,19 @@
                 </p>
             </div>
         </div>
-
-            <div class="row my-4">
+        <br/>
+        <hr/>
+   
+        <h3>My Articles</h3>
+            <div class="row my-1">
 
                 <% if(article.length == 0) { %>
                     <h3>C'mon, Post Your First Article!</h3>
                 <% } else { %> 
-                    <h3>My Articles</h3>
+                    
                     <% for(var i=0;i<article.length;i++){%>
                         <a href="/article/<%=article[i]._id %>" style="text-decoration: none; color: inherit;">
-                            <div class="card col-lg-4 mx-1">
+                            <div class="card col-lg-4 article_cards my-4">
                                 
                                 <div class="card-body">
                                     <h5 class="card-title"><%= article[i].title %></h5>

@@ -9,6 +9,18 @@ const Article = require('../models/article');
 const ejs = require('ejs');
 const serverConfig = require('../configurations/serverConfig');
 const cookieParser = require('cookie-parser');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, 'public/uploads/');
+    },
+    filename: function(req, file, cb){
+        cb(null, Date.now() + file.originalname)
+    }
+})
+
+const upload = multer({storage: storage});
 
 
 articleRouter.use(cookieParser(serverConfig.cookieSecret));
@@ -64,8 +76,9 @@ articleRouter.route('/compose')
     console.log('PUT/UPDATION to be added on /article/submit');
     res.end('PUT/UPDATION to be added on /article/submit');
 })
-.post((req, res, next)=>{
+.post(upload.single('blogimage'), (req, res, next)=>{
     console.log('POST on /article/submit');
+    // console.log(req.file);
     articleOpr.submitArticle(req, res);
     // res.statusCode=200;
     // res.end("Article Submitted Successfully");
@@ -86,18 +99,29 @@ articleRouter.route('/:articleId')
         articleOpr.incRead(article);
         if(req.signedCookies.user){
             var author = "";
+            //var allArticles="hello";
+            
+            //console.log(allArticles);
             userOpr.getAuthorDetails(article.author).then((value)=>{
                 author=value.name;
             })
+            //articleOpr.addComment(req.signedCookies.user, article._id, "hello test comment");
             userOpr.setLastRead(req.signedCookies.user, article._id);
             userOpr.getUserByEmail(req.signedCookies.user)
             .then((user)=>{
-                var userObj = {
-                    user: {userdetails:user},
-                    article: article,
-                    author : author
-                }
-                res.render('article', userObj);
+                var allArticles;
+                articleOpr.getAllArticles().then((articles)=>{
+                    //console.log(articles);
+                    allArticles=articles;
+                    //console.log(allArticles);
+                    var userObj = {
+                        user: {userdetails:user},
+                        article: article,
+                        author : author,
+                        allArticles:allArticles
+                    }
+                    res.render('article', userObj);
+                })
             })
         }
         else{
@@ -121,20 +145,22 @@ articleRouter.route('/:articleId')
 })
 
 
-articleRouter.route('/compose')
-.get((req, res, next)=>{
-    res.sendStatus=200;
-    res.render('compose');
-})
-.post((req,res,next)=>{
-    articleOpr.submitArticle(req, res);
-    res.setHeader('content-type', 'application/json');
-    res.json(req.body);
-})
+// articleRouter.route('/compose')
+// .get((req, res, next)=>{
+//     res.sendStatus=200;
+//     res.render('compose');
+// })
+// .post((req,res,next)=>{
+//     articleOpr.submitArticle(req, res);
+//     res.setHeader('content-type', 'application/json');
+//     res.json(req.body);
+// })
 
 articleRouter.route('/article/compose')
 .get((res, req, next)=>{
     req.redirect('/compose');
 })
+
+
 
 module.exports=articleRouter;

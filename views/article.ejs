@@ -14,14 +14,28 @@
         <div class="row my-5">
             <div class="col-lg-8 mt-4">
                 <h1 class='h1'><%= article.title %></h1>
-
-                <span class="float-sm-left"><%= author %></span><br />
-                <span class="float-sm-left"><%= article.timeDate %></span>
-                <button class="float-sm-right fav">Favourite</button><br />
-                <p class=" mt-5"> <%= article.body %> </p>
+                <br />
+                <h5 class="float-sm-left text-secondary"><%= author %></h5>
+                <span class="float-sm-right text-secondary"><%= article.createdAt %></span><br/><br/>
+                <button class="float-sm-right fav btn btn-warning">Favourite</button><br />
+                <p class="article-body mt-5"> <%= article.body %> </p>
             </div>
             <div class="col-lg-4 my-4">
-                Suggested Articles
+                <h3 class="mx-2">Suggested Articles</h3>
+                
+                <div>
+                    <% for(var j=0; j<=4;j++) { %>
+                        <a href="/article/<%=allArticles[j]._id %>" style="text-decoration: none; color: inherit;">
+                            <div class="card article_cards-article my-4 text-white">
+                                <img src="/uploads/<%=allArticles[j].coverPic%>" class="bg-img" alt="">
+                                <div class="black-overlay"></div>
+                                <div class="card-body overlay">
+                                    <h5 class="card-title"><%= allArticles[j].title %></h5>
+                                </div>
+                            </div>
+                        </a>
+                        <%  } %>
+                </div>
             </div>
         </div>
 

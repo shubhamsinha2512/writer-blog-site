@@ -19,7 +19,7 @@ router.use(cookieParser(serverConfig.cookieSecret));
 /* GET home page. */
 router.get('/', function(req, res, next) {
   console.log("Get on '/'");
-  articleOpr.getAllArticles(res)
+  articleOpr.getAllArticles()
   .then((articles)=>{
 
     if(req.signedCookies.user){
@@ -40,6 +40,7 @@ router.get('/', function(req, res, next) {
             // console.log("Logged In:"+userObj)
             // console.log(user);
             // console.log(articles);
+            //console.log(lastarticle);
           res.render('index', userObj);
           })
         })
