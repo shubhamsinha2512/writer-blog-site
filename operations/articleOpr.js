@@ -72,14 +72,14 @@ exports.getUserArticles = (userId)=>{
 exports.addComment = (useremail, articleId, comment) =>{
     Article.findById(articleId).then((article)=>{
         userOpr.getUserByEmail(useremail).then((user)=>{
-            console.log(user.name);
+            //console.log(user.name);
             var comm = new Comment({
                 author:user._id,
                 name:user.name,
                 comment:comment
             });
             article.comments.push(comm);
-            console.log(article.comments);
+            //console.log(article.comments);
             article.save();
         })
 
