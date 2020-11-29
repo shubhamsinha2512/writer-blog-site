@@ -1,4 +1,4 @@
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8000;
 console.log(port);
 // if(port == null || port==""){
 //     port=8000;

@@ -25,6 +25,7 @@ var articleRouter = require('./routes/articleRouter');
 var aboutRouter = require('./routes/aboutRouter');
 var profileRouter = require('./routes/profileRouter');
 
+require('dotenv').config();
 
 const app=express();
 
