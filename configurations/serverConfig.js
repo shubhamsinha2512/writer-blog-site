@@ -1,8 +1,8 @@
-var port = process.env.PORT;
-
-if(port == null || port==""){
-    port=8000;
-}
+var port = process.env.PORT || 3000;
+console.log(port);
+// if(port == null || port==""){
+//     port=8000;
+// }
 
 module.exports={
     port:port,
